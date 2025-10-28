@@ -30,9 +30,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 to-black px-4">
+    <div className="flex justify-center items-center min-h-screen bg-linear-to-br from-gray-900 to-black px-4">
       <div className="backdrop-blur-lg bg-white/10 border border-white/10 shadow-2xl rounded-2xl p-8 w-full max-w-sm text-white">
-        <h2 className="text-3xl font-semibold text-center bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        <h2 className="text-3xl font-semibold text-center bg-linear-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
           Welcome Back 👋
         </h2>
 
@@ -65,7 +65,7 @@ const Login = () => {
 
           {/* Login Btn */}
           <button
-            className="w-full py-3 mt-4 text-lg font-semibold rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-[1.03] transition-all shadow-lg"
+            className="w-full py-3 mt-4 text-lg font-semibold rounded-xl bg-linear-to-r from-blue-500 to-purple-600 hover:scale-[1.03] transition-all shadow-lg"
             onClick={handleLogin}
           >
             Login
