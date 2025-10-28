@@ -8,13 +8,14 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [emailId, setEmailId] = useState("ujjwal@gmail.com");
   const [password, setPassword] = useState("Ujjwal@12345");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        BASE_URL+"/login",
+        BASE_URL + "/login",
         {
           emailId,
           password,
@@ -26,6 +27,7 @@ const Login = () => {
       return navigate("/");
     } catch (err) {
       console.error(err);
+      setError(err?.response?.data);
     }
   };
 
@@ -64,12 +66,16 @@ const Login = () => {
           </div>
 
           {/* Login Btn */}
-          <button
-            className="w-full py-3 mt-4 text-lg font-semibold rounded-xl bg-linear-to-r from-blue-500 to-purple-600 hover:scale-[1.03] transition-all shadow-lg"
-            onClick={handleLogin}
-          >
-            Login
-          </button>
+          <div>
+            <p className="text-red-500">{error}</p>
+
+            <button
+              className="w-full py-3 mt-4 text-lg font-semibold rounded-xl bg-linear-to-r from-blue-500 to-purple-600 hover:scale-[1.03] transition-all shadow-lg"
+              onClick={handleLogin}
+            >
+              Login
+            </button>
+          </div>
 
           {/* Footer */}
           <div className="text-center text-sm text-gray-400">
