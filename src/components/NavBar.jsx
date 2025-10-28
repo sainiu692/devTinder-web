@@ -12,7 +12,6 @@ const NavBar = () => {
       </div>
       {user&&(
         <div className="flex gap-2">
-        <div className="form-control">Welcome,{user.firstName}</div>
         <div className="dropdown dropdown-end mx-5 flex">
           <div
             tabIndex={0}
