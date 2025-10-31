@@ -32,61 +32,61 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-linear-to-br from-gray-900 to-black px-4">
-      <div className="backdrop-blur-lg bg-white/10 border border-white/10 shadow-2xl rounded-2xl p-8 w-full max-w-sm text-white">
-        <h2 className="text-3xl font-semibold text-center bg-linear-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-          Welcome Back 👋
-        </h2>
+    <div className="flex justify-center items-start pt-[10vh] min-h-screen bg-linear-to-br from-gray-900 to-black px-4">
+  <div className="backdrop-blur-lg bg-white/10 border border-white/10 shadow-2xl rounded-2xl p-8 w-full max-w-sm text-white">
+    <h2 className="text-3xl font-semibold text-center bg-linear-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+      Welcome Back 👋
+    </h2>
 
-        <div className="mt-8 space-y-6">
-          {/* Email */}
-          <div>
-            <label className="block mb-1 font-medium text-gray-200">
-              Email
-            </label>
-            <input
-              type="email"
-              value={emailId}
-              onChange={(e) => setEmailId(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
-            />
-          </div>
+    <div className="mt-8 space-y-6">
+      {/* Email */}
+      <div>
+        <label className="block mb-1 font-medium text-gray-200">
+          Email
+        </label>
+        <input
+          type="email"
+          value={emailId}
+          onChange={(e) => setEmailId(e.target.value)}
+          className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
+        />
+      </div>
 
-          {/* Password */}
-          <div>
-            <label className="block mb-1 font-medium text-gray-200">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-purple-500 transition"
-            />
-          </div>
+      {/* Password */}
+      <div>
+        <label className="block mb-1 font-medium text-gray-200">
+          Password
+        </label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-purple-500 transition"
+        />
+      </div>
 
-          {/* Login Btn */}
-          <div>
-            <p className="text-red-500">{error}</p>
+      {/* Login Btn */}
+      <div>
+        <p className="text-red-500">{error}</p>
 
-            <button
-              className="w-full py-3 mt-4 text-lg font-semibold rounded-xl bg-linear-to-r from-blue-500 to-purple-600 hover:scale-[1.03] transition-all shadow-lg"
-              onClick={handleLogin}
-            >
-              Login
-            </button>
-          </div>
+        <button
+          className="w-full py-3 mt-4 text-lg font-semibold rounded-xl bg-linear-to-r from-blue-500 to-purple-600 hover:scale-[1.03] transition-all shadow-lg"
+          onClick={handleLogin}
+        >
+          Login
+        </button>
+      </div>
 
-          {/* Footer */}
-          <div className="text-center text-sm text-gray-400">
-            Don’t have an account?{" "}
-            <a className="text-blue-400 hover:text-blue-300 cursor-pointer">
-              Sign up
-            </a>
-          </div>
-        </div>
+      {/* Footer */}
+      <div className="text-center text-sm text-gray-400">
+        Don't have an account?{" "}
+        <a className="text-blue-400 hover:text-blue-300 cursor-pointer">
+          Sign up
+        </a>
       </div>
     </div>
+  </div>
+</div>
   );
 };
 
