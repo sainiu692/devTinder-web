@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
-import { Link } from "react-router-dom";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -43,7 +42,7 @@ const Connections = () => {
                 key={_id}
                 className="flex items-center gap-4 p-4 rounded-xl bg-base-300 hover:bg-base-200 transition-colors shadow-md"
               >
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <img
                     alt="photo"
                     className="w-20 h-20 rounded-full object-cover"
