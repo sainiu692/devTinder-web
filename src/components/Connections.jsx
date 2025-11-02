@@ -26,13 +26,13 @@ const Connections = () => {
   if (connections.length === 0) return <h1>No connections found!!!!!</h1>;
 
   return (
-    <div className="py-10 px-4 min-h-screen">
+    <div className="py-10 px-4 pb-20">
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold text-white text-center mb-8">
           Connections ({connections.length})
         </h1>
 
-        <div className="space-y-3 max-h-[calc(100vh-200px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent">
+        <div className="space-y-3 pb-10">
           {connections.map((connection) => {
             const { _id, firstName, lastName, photoUrl, age, gender, about } =
               connection;

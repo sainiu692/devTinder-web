@@ -1,28 +1,24 @@
-// const UserCard = ({ user }) => {
-// const {firstName,lastName,age,gender,photoUrl,skills,about}=user
-//   return (
-//     <div className="card bg-base-100 w-80 h-100 shadow-sm">
-//       <figure>
-//         <img alt="user image" src={user.photoUrl} />
-//       </figure>
-//       <div className="card-body">
-//         <h2 className="card-title">Card Title</h2>
-//         <p>
-//           A card component has a figure, a body part, and inside body there are
-//           title and actions parts
-//         </p>
-//         <div className="card-actions justify-end">
-//           <button className="btn btn-primary">Buy Now</button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { removeUserFromFeed } from "../utils/feedSlice";
 
 // export default UserCard;
 
 const UserCard = ({ user }) => {
-  const { firstName, lastName, age, gender, photoUrl, skills, about } = user;
+  const { _id,firstName, lastName, age, gender, photoUrl, skills, about } = user;
+  const dispatch = useDispatch();
+
+  const handleSendRequest = async (status, userId) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/send/request/" + status + "/" + userId,
+        {},
+        { withCredentials: true }
+      );
+      dispatch(removeUserFromFeed(userId));
+    } catch (err) {}
+  };
 
   return (
     <div className="card bg-base-100 w-96 shadow-2xl relative">
@@ -68,25 +64,19 @@ const UserCard = ({ user }) => {
 
       {/* Floating Action Buttons */}
       <div className="absolute -bottom-6 left-0 right-0 flex justify-center gap-4">
-        <button className="btn btn-circle btn-lg btn-error shadow-lg">
-          <svg
-            className="w-8 h-8"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+        <button
+          className="px-6 py-3 bg-red-500/90 backdrop-blur-sm text-white font-semibold rounded-full shadow-lg hover:bg-red-600 transition-all"
+          onClick={() => handleSendRequest("ignored", _id)}
+        >
+          Ignore
         </button>
-        <button className="btn btn-circle btn-lg btn-success shadow-lg">
-          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-          </svg>
+        <button
+          className="px-6 py-3 bg-green-500/90 backdrop-blur-sm text-white font-semibold rounded-full shadow-lg hover:bg-green-600 transition-all"
+          onClick={() => {
+            handleSendRequest("interested", _id);
+          }}
+        >
+          Interested
         </button>
       </div>
     </div>

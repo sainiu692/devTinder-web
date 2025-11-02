@@ -4,13 +4,39 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
+import Profile from "./Profile";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("ujjwal@gmail.com");
-  const [password, setPassword] = useState("Ujjwal@12345");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [gender, setGender] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleSignup = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        {
+          firstName,
+          lastName,
+          gender,
+          emailId,
+          password,
+        },
+        { withCredentials: true }
+      );
+      console.log(res);
+      dispatch(addUser(res.data.data));
+      return navigate("/profile");
+    } catch (err) {
+      setError(err?.response?.data);
+    }
+  };
 
   const handleLogin = async () => {
     try {
@@ -22,71 +48,111 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      // console.log(res.data);
       dispatch(addUser(res.data));
+
       return navigate("/");
     } catch (err) {
-      console.error(err);
       setError(err?.response?.data);
     }
   };
 
   return (
-    <div className="flex justify-center items-start pt-[10vh] min-h-screen bg-linear-to-br from-gray-900 to-black px-4">
-  <div className="backdrop-blur-lg bg-white/10 border border-white/10 shadow-2xl rounded-2xl p-8 w-full max-w-sm text-white">
-    <h2 className="text-3xl font-semibold text-center bg-linear-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-      Welcome Back 👋
-    </h2>
+    <div className="flex justify-center items-start pt-[10vh] min-h-screen bg-base-100 px-4">
+      <div className="bg-base-300 border border-gray-700 shadow-2xl rounded-2xl p-8 w-full max-w-sm">
+        <h2 className="text-3xl font-semibold text-center text-white">
+          {isLoginForm ? "Login" : "Sign Up"} 👋
+        </h2>
 
-    <div className="mt-8 space-y-6">
-      {/* Email */}
-      <div>
-        <label className="block mb-1 font-medium text-gray-200">
-          Email
-        </label>
-        <input
-          type="email"
-          value={emailId}
-          onChange={(e) => setEmailId(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition"
-        />
-      </div>
+        <div className="mt-8 space-y-6">
+          {!isLoginForm && (
+            <>
+              {/* First Name  */}
+              <div>
+                <label className="block mb-1 font-medium text-gray-200">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl bg-base-200 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-primary transition"
+                />
+              </div>
+              {/* Last Name */}
+              <div>
+                <label className="block mb-1 font-medium text-gray-200">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl bg-base-200 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-primary transition"
+                />
+              </div>
+              {/* gender */}
+              <div>
+                <label className="block mb-1 font-medium text-gray-200">
+                  Gender
+                </label>
+                <input
+                  type="text"
+                  value={gender}
+                  onChange={(e) => setGender(e.target.value)}
+                  className="w-full px-4 py-3 rounded-xl bg-base-200 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-primary transition"
+                />
+              </div>
+            </>
+          )}
 
-      {/* Password */}
-      <div>
-        <label className="block mb-1 font-medium text-gray-200">
-          Password
-        </label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-4 py-3 rounded-xl bg-white/20 text-white placeholder-gray-300 outline-none focus:ring-2 focus:ring-purple-500 transition"
-        />
-      </div>
+          {/* Email */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-200">
+              Email
+            </label>
+            <input
+              type="email"
+              value={emailId}
+              onChange={(e) => setEmailId(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl bg-base-200 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-primary transition"
+            />
+          </div>
+          {/* Password */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-200">
+              Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl bg-base-200 text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-primary transition"
+            />
+          </div>
+          {/* Login Btn */}
+          <div>
+            <p className="text-red-500">{error}</p>
 
-      {/* Login Btn */}
-      <div>
-        <p className="text-red-500">{error}</p>
-
-        <button
-          className="w-full py-3 mt-4 text-lg font-semibold rounded-xl bg-linear-to-r from-blue-500 to-purple-600 hover:scale-[1.03] transition-all shadow-lg"
-          onClick={handleLogin}
-        >
-          Login
-        </button>
-      </div>
-
-      {/* Footer */}
-      <div className="text-center text-sm text-gray-400">
-        Don't have an account?{" "}
-        <a className="text-blue-400 hover:text-blue-300 cursor-pointer">
-          Sign up
-        </a>
+            <button
+              className="w-full py-3 mt-4 text-lg font-semibold rounded-xl bg-primary hover:bg-primary-focus cursor-pointer transition-all shadow-lg text-white"
+              onClick={isLoginForm ? handleLogin : handleSignup}
+            >
+              {isLoginForm ? "Login" : "Sign Up"}
+            </button>
+          </div>
+          {/* Footer */}
+          <div
+            className="text-center text-sm text-gray-400"
+            onClick={() => setIsLoginForm((value) => !value)}
+          >
+            {isLoginForm ? "Don't have an account?" : "Existing User!!"}
+            <a className="text-primary hover:text-primary-focus cursor-pointer">
+              {isLoginForm ? "Sign Up" : "Login"}
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
   );
 };
 

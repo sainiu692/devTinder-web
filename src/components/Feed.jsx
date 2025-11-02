@@ -1,29 +1,85 @@
+// import axios from "axios";
+// import { useDispatch, useSelector } from "react-redux";
+// import { BASE_URL } from "../utils/constants";
+// import { addFeed } from "../utils/feedSlice";
+// import { useEffect } from "react";
+// import UserCard from "./UserCard";
+
+// const Feed = () => {
+//   const feed = useSelector((store) => store.feed);
+//   const dispatch = useDispatch();
+
+//   const getFeed = async () => {
+//     // if (feed) return;
+//     try {
+//       const res = await axios.get(BASE_URL + "/feed", {
+//         withCredentials: true,
+//       });
+//       dispatch(addFeed(res?.data?.data));
+//     } catch (err) {}
+//   };
+
+//   useEffect(() => {
+//     getFeed();
+//   }, []);
+
+//   if(!feed) return;
+//   if(feed.length<=0) return <h1 className="flex justify-center my-10">No new users found!!</h1>
+
+//   return (
+//     feed && (
+//       <div className="flex justify-center my-15">
+//         <UserCard user={feed[0]} />
+//       </div>
+//     )
+//   );
+// };
+
+// export default Feed;
+
+
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/constants";
 import { addFeed } from "../utils/feedSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 
 const Feed = () => {
   const feed = useSelector((store) => store.feed);
-  // console.log(feed);
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
   const getFeed = async () => {
-    if (feed) return;
+    // if (feed) return;
     try {
       const res = await axios.get(BASE_URL + "/feed", {
         withCredentials: true,
       });
-      // console.log(res)
       dispatch(addFeed(res?.data?.data));
-    } catch (err) {}
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
     getFeed();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
+  if (!feed) return;
+  if (feed.length <= 0)
+    return (
+      <h1 className="flex justify-center my-10">No new users found!!</h1>
+    );
 
   return (
     feed && (
