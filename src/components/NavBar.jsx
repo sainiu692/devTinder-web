@@ -15,7 +15,7 @@ const NavBar = () => {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUserFromFeed());
       dispatch(clearFeed())
-      return navigate("/login");
+      navigate("/login");
     } catch (err) {
       //Error logic may be redirect to error page
     }
@@ -57,7 +57,8 @@ const NavBar = () => {
                 <Link to="/requests">Connection Requests</Link>
               </li>
               <li>
-                <a onClick={handleLogout}>Logout</a>
+                {/* <a onClick={handleLogout}>Logout</a> */}
+                <button onClick={handleLogout}> Logout</button>
               </li>
             </ul>
           </div>
