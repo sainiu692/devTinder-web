@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Connections = () => {
       dispatch(addConnections(res?.data?.data));
     } catch (err) {
       // handle error case
+      console.error("Error fetching connections:", err);
     }
   };
   useEffect(() => {
@@ -62,6 +64,9 @@ const Connections = () => {
                     {about}
                   </p>
                 </div>
+                <Link to={"/chat/" + _id}>
+                  <button className=" btn btn-primary ">Chat</button>
+                </Link>
               </div>
             );
           })}

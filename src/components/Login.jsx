@@ -68,7 +68,7 @@ const Login = () => {
             <>
               {/* First Name  */}
               <div>
-                <label className="block mb-1 font-medium text-gray-200 text-sm">
+                <label className="block mb-1 font-medium text-blue-200 text-sm">
                   First Name
                 </label>
                 <input
