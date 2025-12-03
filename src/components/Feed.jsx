@@ -69,8 +69,11 @@ const Feed = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-spinner loading-lg"></span>
+      <div className="flex justify-center items-center min-h-[70vh]">
+        <div className="text-center">
+          <span className="loading loading-spinner loading-lg text-primary"></span>
+          <p className="mt-4 text-base-content/70 font-medium">Finding amazing developers...</p>
+        </div>
       </div>
     );
   }
@@ -78,13 +81,21 @@ const Feed = () => {
   if (!feed) return;
   if (feed.length <= 0)
     return (
-      <h1 className="flex justify-center my-10">No new users found!!</h1>
+      <div className="flex flex-col justify-center items-center min-h-[70vh] px-4">
+        <div className="text-center">
+          <div className="text-6xl mb-4">🔍</div>
+          <h1 className="text-2xl font-bold text-base-content mb-2">No new users found!</h1>
+          <p className="text-base-content/70">Check back later for more developers</p>
+        </div>
+      </div>
     );
 
   return (
     feed && (
-      <div className="flex justify-center my-15">
-        <UserCard user={feed[0]} />
+      <div className="flex justify-center items-center min-h-[70vh] py-8 px-4">
+        <div className="transform transition-all hover:scale-[1.02]">
+          <UserCard user={feed[0]} />
+        </div>
       </div>
     )
   );

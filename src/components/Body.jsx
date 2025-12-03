@@ -31,9 +31,11 @@ const Body = () => {
     fetchUser();
   }, []);
   return (
-    <div>
+    <div className="min-h-screen bg-base-100">
       <NavBar />
-      <Outlet />
+      <main className="animate-fadeIn">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );

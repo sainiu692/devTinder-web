@@ -66,49 +66,90 @@ const Chat = () => {
   };
 
   return (
-    <div className="border border-gray-300 dark:border-gray-700 rounded-2xl max-w-2xl mx-auto mt-10 bg-white dark:bg-gray-900 shadow-lg transition-colors">
-      {/* Header */}
-      <h1 className="p-5 border-b border-gray-200 dark:border-gray-700 text-xl font-semibold text-gray-800 dark:text-gray-100">
-        Chat
-      </h1>
-
-      {/* Chat Display Area */}
-      <div className="flex-1 overflow-y-auto p-5 h-96 space-y-3 bg-gray-50 dark:bg-gray-800 rounded-b-xl transition-colors">
-        {/* Messages go here */}
-        {messages.map((msg, index) => {
-          return (
-            <div
-              key={index}
-              className={
-                "chat " +
-                (user.firstName === msg.firstName ? "chat-end" : "chat-start")
-              }
-            >
-              <div className="chat-header">
-                {`${msg.firstName}   ${msg.lastName}`}
-                <time className="text-xs opacity-50">2 hours ago</time>
+    <div className="max-w-4xl mx-auto mt-6 mb-20 px-4">
+      <div className="card bg-base-100 border border-base-300 shadow-2xl">
+        {/* Header */}
+        <div className="card-body p-0">
+          <div className="bg-gradient-to-r from-primary/20 to-secondary/20 p-6 border-b border-base-300">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg">
+                <span className="text-2xl">💬</span>
               </div>
-              <div className="chat-bubble">{msg.text}</div>
-              <div className="chat-footer opacity-50">Seen</div>
+              <div>
+                <h1 className="text-2xl font-bold text-base-content">Chat</h1>
+                <p className="text-sm text-base-content/70">Real-time messaging</p>
+              </div>
             </div>
-          );
-        })}
-      </div>
+          </div>
 
-      {/* Input Area */}
-      <div className="p-5 border-t border-gray-200 dark:border-gray-700 flex gap-3 items-center bg-white dark:bg-gray-900 transition-colors">
-        <input
-          value={newMessages}
-          onChange={(e) => setNewMessages(e.target.value)}
-          className="flex-1 p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition"
-          placeholder="Type a message..."
-        />
-        <button
-          onClick={sendMessage}
-          className="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 dark:hover:bg-blue-500 transition"
-        >
-          Send
-        </button>
+          {/* Chat Display Area */}
+          <div className="flex-1 overflow-y-auto p-6 h-[500px] space-y-4 bg-base-200/30">
+            {messages.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-full">
+                <div className="text-6xl mb-4 opacity-50">💭</div>
+                <p className="text-base-content/70 font-medium">No messages yet. Start the conversation!</p>
+              </div>
+            ) : (
+              messages.map((msg, index) => {
+                const isOwnMessage = user.firstName === msg.firstName;
+                return (
+                  <div
+                    key={index}
+                    className={`flex ${isOwnMessage ? "justify-end" : "justify-start"}`}
+                  >
+                    <div className={`flex flex-col max-w-[70%] ${isOwnMessage ? "items-end" : "items-start"}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-semibold text-base-content/70">
+                          {msg.firstName} {msg.lastName}
+                        </span>
+                        <span className="text-xs text-base-content/50">2h ago</span>
+                      </div>
+                      <div
+                        className={`chat-bubble ${
+                          isOwnMessage
+                            ? "chat-bubble-primary"
+                            : "chat-bubble-secondary"
+                        } shadow-lg`}
+                      >
+                        {msg.text}
+                      </div>
+                      <div className="text-xs text-base-content/50 mt-1">
+                        ✓✓ Seen
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          {/* Input Area */}
+          <div className="p-6 border-t border-base-300 bg-base-100">
+            <div className="flex gap-3 items-center">
+              <input
+                value={newMessages}
+                onChange={(e) => setNewMessages(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter" && newMessages.trim()) {
+                    sendMessage();
+                  }
+                }}
+                className="flex-1 input input-bordered focus:input-primary transition-all"
+                placeholder="Type a message..."
+              />
+              <button
+                onClick={sendMessage}
+                disabled={!newMessages.trim()}
+                className="btn btn-primary btn-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all disabled:opacity-50"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg>
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
